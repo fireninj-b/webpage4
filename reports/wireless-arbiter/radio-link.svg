@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" font-family="IBM Plex Mono, Consolas, Menlo, monospace">
+  <rect width="640" height="360" fill="#000"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#fff"/>
+    </marker>
+  </defs>
+
+  <!-- datapath board -->
+  <rect x="30" y="100" width="200" height="160" fill="none" stroke="#fff" stroke-width="1.5"/>
+  <text x="50" y="132" fill="#fff" font-size="15" font-weight="600" letter-spacing="1">DATAPATH</text>
+  <text x="50" y="156" fill="#8a8a8a" font-size="12">Arduino Uno</text>
+  <text x="50" y="176" fill="#8a8a8a" font-size="12">holds packets</text>
+  <line x1="30" y1="200" x2="230" y2="200" stroke="#333"/>
+  <text x="50" y="224" fill="#bdbdbd" font-size="12">nRF24L01</text>
+  <text x="50" y="244" fill="#8a8a8a" font-size="11">CE 9 · CSN 10</text>
+
+  <!-- arbiter board -->
+  <rect x="410" y="100" width="200" height="160" fill="none" stroke="#fff" stroke-width="1.5"/>
+  <text x="430" y="132" fill="#fff" font-size="15" font-weight="600" letter-spacing="1">ARBITER</text>
+  <text x="430" y="156" fill="#8a8a8a" font-size="12">Arduino Uno</text>
+  <text x="430" y="176" fill="#8a8a8a" font-size="12">fuzzy logic</text>
+  <line x1="410" y1="200" x2="610" y2="200" stroke="#333"/>
+  <text x="430" y="224" fill="#bdbdbd" font-size="12">nRF24L01</text>
+  <text x="430" y="244" fill="#8a8a8a" font-size="11">CE 9 · CSN 10</text>
+
+  <!-- request: datapath -> arbiter -->
+  <line x1="240" y1="140" x2="400" y2="140" stroke="#fff" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+  <text x="320" y="128" fill="#fff" font-size="12" text-anchor="middle">ingressQueue</text>
+  <text x="320" y="160" fill="#8a8a8a" font-size="11" text-anchor="middle">pipe "00002" · 100 ms</text>
+
+  <!-- credit: arbiter -> datapath -->
+  <line x1="400" y1="222" x2="240" y2="222" stroke="#fff" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+  <text x="320" y="210" fill="#fff" font-size="12" text-anchor="middle">credit</text>
+  <text x="320" y="242" fill="#8a8a8a" font-size="11" text-anchor="middle">pipe "00001" · +500 ms</text>
+
+  <text x="320" y="310" fill="#555" font-size="11" text-anchor="middle" letter-spacing="1.5">2.4 GHz · HALF-DUPLEX · RF24_PA_MIN</text>
+</svg>
