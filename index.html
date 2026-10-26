@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angel Barrera — Computer Engineering Portfolio</title>
+  <meta name="description" content="Angel Barrera, Computer Engineering student at Cal State East Bay. Embedded hardware, PCB design and firmware projects, resume, and project reports.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="frame">
+
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+      <div class="header-id">
+        <p class="label">// Portfolio [This Website is Currently Under Construction]</p>
+        <h1 class="name">Angel Barrera</h1>
+        <p class="tagline">Computer Engineering student at Cal State East Bay, working where hardware meets software.</p>
+      </div>
+      <ul class="header-links">
+        <li><a href="mailto:work.angel.barrera@gmail.com">Email</a></li>
+        <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/angel-barrera-ba1a00186" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </header>
+
+    <!-- ============ NAV ============ -->
+    <nav class="tabs" aria-label="Sections">
+      <a href="#software" data-tab="software"><span class="num">01</span> Software</a>
+      <a href="#hardware" data-tab="hardware"><span class="num">02</span> Hardware</a>
+      <a href="#resume"   data-tab="resume"><span class="num">03</span> Resume</a>
+      <a href="#reports"  data-tab="reports"><span class="num">04</span> Reports</a>
+    </nav>
+
+    <main>
+
+      <!-- ============ SOFTWARE ============ -->
+      <section id="software" class="panel" data-panel="software">
+        <div class="panel-head">
+          <h2>Software Projects</h2>
+          <p>Code I've written, from a terminal password manager to the firmware that drives my plotter, plus the self-hosted server I run at home.</p>
+        </div>
+
+        <div class="grid">
+          <article class="card" id="sw-homelab">
+            <div class="card-top">
+              <span class="tag">SW-01</span>
+              <span class="status status-progress">Ongoing</span>
+            </div>
+            <p class="card-date">Jun 2023 — Present</p>
+            <h3>Homelab Media Server</h3>
+            <p>A personal home server running TrueNAS and Unraid, with Docker containers that stream my own library of movies and TV shows. File sharing between devices runs over SMB/NFS storage pools, much like a company's shared network storage.</p>
+            <ul class="stack"><li>TrueNAS</li><li>Unraid</li><li>Docker</li><li>SMB / NFS</li></ul>
+            <div class="card-links">
+              <a href="#resume/res-homelab">Resume entry →</a>
+            </div>
+          </article>
+
+          <article class="card" id="sw-plotter">
+            <div class="card-top">
+              <span class="tag">SW-02</span>
+              <span class="status status-done">Complete</span>
+            </div>
+            <div class="figure"><img src="reports/2d-plotter/eeprom-gui.png" alt="EEPROM G-code Manager desktop app showing COM port, EEPROM device selection, and upload, download and delete buttons" loading="lazy"></div>
+            <p class="card-date">Sep 2024 — May 2025 · Senior Design, team of 3</p>
+            <h3>2-D Plotter Control Software</h3>
+            <p>Firmware for the plotter's ATmega328P plus a Python desktop app for loading drawings. A three-state machine (Idle, Manual, Plotting) handles serial commands like <code>X100</code>, <code>PD</code> or <code>CIRCLE</code>, and plays back G-code (G0, G1, G90, G91) stored in external EEPROM.</p>
+            <ul class="specs">
+              <li><span>Firmware</span>Serial command parser, G-code reader, XY step interpolation, OLED menu driven by a rotary encoder</li>
+              <li><span>Desktop app</span>Python GUI that uploads G-code in 64-byte chunks with handshakes, and indexes, reads back and deletes stored files</li>
+              <li><span>Storage</span>2 × AT24C256 EEPROM over I²C (0x50 / 0x51), 64 kB total</li>
+            </ul>
+            <ul class="stack"><li>C++ / Arduino</li><li>Python</li><li>G-code</li><li>I²C</li><li>SSD1306 OLED</li></ul>
+            <div class="card-links">
+              <a href="#report-2d-plotter">Read report →</a>
+              <a href="#hardware/hw-plotter">Hardware build →</a>
+              <a href="#resume/res-plotter">Resume entry →</a>
+            </div>
+          </article>
+
+          <article class="card" id="sw-arbiter">
+            <div class="card-top">
+              <span class="tag">SW-03</span>
+              <span class="status status-done">Complete</span>
+            </div>
+            <div class="figure"><img src="reports/wireless-arbiter/fuzzy-sets.svg" alt="Chart of the three fuzzy input sets LO, JR and HI across queue occupancy 0 to 10" loading="lazy"></div>
+            <p class="card-date">Aug 2023 — Dec 2023 · University research</p>
+            <h3>Fuzzy-Logic Credit Arbiter</h3>
+            <p>Firmware for the two boards in the wireless arbitration project. The arbiter runs a small fuzzy inference system that turns the datapath's queue occupancy into a transmit credit. The datapath applies those credits and drains one packet downstream every tick.</p>
+            <ul class="specs">
+              <li><span>Fuzzy system</span>3 input sets (LO, JR, HI), 3 rules, weighted-average defuzzification, credit from 2 to 7</li>
+              <li><span>Datapath</span>Non-blocking 100 ms clock, ingress/egress queues, credit request and apply loop</li>
+            </ul>
+            <ul class="stack"><li>C++ / Arduino</li><li>RF24 library</li><li>Fuzzy inference</li><li>Queueing</li></ul>
+            <div class="card-links">
+              <a href="#report-wireless-arbiter">Read report →</a>
+              <a href="#hardware/hw-wireless">Hardware setup →</a>
+            </div>
+          </article>
+
+          <article class="card" id="sw-password">
+            <div class="card-top">
+              <span class="tag">SW-04</span>
+              <span class="status status-done">Complete</span>
+            </div>
+            <p class="card-date">Aug 2022 — Feb 2023</p>
+            <h3>Password Manager in C++</h3>
+            <p>A terminal-based password manager that keeps login credentials in an encrypted .txt file. I researched the Vigenère cipher on my own and implemented it to encrypt the stored data.</p>
+            <ul class="stack"><li>C++</li><li>Vigenère cipher</li><li>CLI</li></ul>
+            <div class="card-links">
+              <a href="#resume/res-password">Resume entry →</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ HARDWARE ============ -->
+      <section id="hardware" class="panel" data-panel="hardware">
+        <div class="panel-head">
+          <h2>Hardware Projects</h2>
+          <p>Boards and embedded systems I've designed and built, from a custom 4-layer PCB to a wireless link between microcontrollers.</p>
+        </div>
+
+        <div class="grid">
+          <article class="card" id="hw-plotter">
+            <div class="card-top">
+              <span class="tag">HW-01</span>
+              <span class="status status-done">Complete</span>
+            </div>
+            <div class="figure"><img src="reports/2d-plotter/plotter-photo.jpg" alt="The finished 2-D plotter: custom green PCB with OLED screen in an enclosure next to the 3D-printed X/Y gantry holding a pen over grid paper" loading="lazy"></div>
+            <p class="card-date">Sep 2024 — May 2025 · Senior Design, team of 3</p>
+            <h3>2-D Plotter PCB</h3>
+            <p>A custom 4-layer PCB designed in Fusion 360 for a pen plotter, built around an ATmega328P and three ULN2003A drivers for three unipolar stepper motors (X, Y and pen lift). I took it from concept through to a working physical prototype.</p>
+            <ul class="specs">
+              <li><span>Board</span>105 × 211 mm, 4 layers (signal / power / ground / signal), 51 components, $36.37 in parts per board</li>
+              <li><span>Motion</span>3 × 28BYJ-48 steppers, 2048 steps/rev, 80 × 80 mm draw area</li>
+              <li><span>Interface</span>128×64 OLED (I²C) and rotary encoder with push-button</li>
+              <li><span>Power</span>DC barrel jack into two LM2596 3 A buck regulators, with motor current paths routed away from logic</li>
+            </ul>
+            <ul class="stack"><li>Fusion 360</li><li>4-layer PCB</li><li>ATmega328P</li><li>ULN2003A</li><li>AT24C256</li><li>LM2596</li></ul>
+            <div class="card-links">
+              <a href="#report-2d-plotter">Read report →</a>
+              <a href="#report-2d-plotter-mfg">Manufacturing package →</a>
+              <a href="reports/2d-plotter/2d-plotter-journal.pdf" download>Journal PDF ↓</a>
+              <a href="#software/sw-plotter">Control software →</a>
+            </div>
+          </article>
+
+          <article class="card" id="hw-wireless">
+            <div class="card-top">
+              <span class="tag">HW-02</span>
+              <span class="status status-done">Complete</span>
+            </div>
+            <div class="figure"><img src="reports/wireless-arbiter/radio-link.svg" alt="Diagram: a datapath Arduino and an arbiter Arduino, each with an nRF24L01 radio, sending queue occupancy one way and credits back the other" loading="lazy"></div>
+            <p class="card-date">Aug 2023 — Dec 2023 · University research</p>
+            <h3>Wireless Data Arbitration</h3>
+            <p>Two Arduino Unos linked by nRF24L01 2.4 GHz radios over SPI. A <em>datapath</em> board reports how full its packet queue is, and an <em>arbiter</em> board answers with a credit: how many packets it may forward. The credit is set by a fuzzy logic algorithm I designed.</p>
+            <ul class="specs">
+              <li><span>Radio link</span>Two-way over mirrored pipes ("00001" / "00002"); each radio switches between transmit and receive</li>
+              <li><span>Timing</span>Datapath ticks every 100 ms on <code>millis()</code>; the arbiter replies 500 ms after each request</li>
+              <li><span>Flow control</span>Credit-based: packets move from ingress to egress only as credits arrive</li>
+            </ul>
+            <ul class="stack"><li>Arduino Uno</li><li>nRF24L01</li><li>SPI</li><li>Fuzzy logic</li><li>Flow control</li></ul>
+            <div class="card-links">
+              <a href="#report-wireless-arbiter">Read report →</a>
+              <a href="#software/sw-arbiter">Arbiter firmware →</a>
+              <a href="#resume/res-wireless">Resume entry →</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ RESUME ============ -->
+      <section id="resume" class="panel" data-panel="resume">
+        <div class="panel-head panel-head-row">
+          <div>
+            <h2>Resume</h2>
+            <p>Computer Engineering Graduate at Cal State East Bay with hands-on experience across robotics R&amp;D, embedded hardware, and IT support.</p>
+            <ul class="contact-line">
+              <li>Hayward, CA</li>
+              
+              <li><a href="mailto:work.angel.barrera@gmail.com">work.angel.barrera@gmail.com</a></li>
+            </ul>
+          </div>
+          <a class="button" href="resume.pdf" download="Angel_Barrera_Resume.pdf">Download PDF ↓</a>
+        </div>
+
+        <div class="resume">
+          <div class="resume-block">
+            <h3 class="block-title">Summary</h3>
+            <p>Computer Engineering Graduate (Minor in Computer Science) who likes working where hardware meets software. I've tested and validated robotics systems at a startup, designed a 4-layer PCB and the firmware to drive it, built wireless links between microcontrollers, and launched a university's first online print shop. Comfortable troubleshooting anything from a Windows machine to a home server.</p>
+          </div>
+
+          <div class="resume-block">
+            <h3 class="block-title">Education</h3>
+            <div class="entry">
+              <div class="entry-meta"><span>Hayward, CA</span></div>
+              <div class="entry-body">
+                <h4>B.S. Computer Engineering</h4>
+                <p class="entry-org">California State University, East Bay</p>
+                <p>Minor in Computer Science</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="resume-block">
+            <h3 class="block-title">Experience</h3>
+            <div class="entry">
+              <div class="entry-meta"><span>Mar 2026 — Aug 2026</span><span>SF Bay Area</span><span class="entry-note">On-site</span></div>
+              <div class="entry-body">
+                <h4>R&amp;D Operator</h4>
+                <p class="entry-org">The Bot Company (BotCo)</p>
+                <ul>
+                  <li>Tested and validated hardware and software systems for a robotics startup, helping the team catch issues early and keep products on track for release.</li>
+                  <li>Partnered with engineers to troubleshoot problems and suggest fixes, contributing directly to product quality and performance.</li>
+                  <li>Tracked and reported performance data to support ongoing product improvements and maintain quality assurance standards.</li>
+                </ul>
+                <ul class="stack"><li>Robotics</li><li>Hardware validation</li><li>QA</li></ul>
+              </div>
+            </div>
+            <div class="entry">
+              <div class="entry-meta"><span>Sep 2025 — Mar 2026</span><span>Hayward, CA</span><span class="entry-note">Contract</span></div>
+              <div class="entry-body">
+                <h4>Reprographics Specialist</h4>
+                <p class="entry-org">Cal State East Bay</p>
+                <ul>
+                  <li>Built the university's first online print shop from the ground up on Xerox's MarketDirect StoreFront platform, replacing a manual e-form request process with a self-service eCommerce site.</li>
+                  <li>Set up product catalogs, pricing structures, and order workflows, making it faster and easier for staff and students to place print requests.</li>
+                  <li>Owned the site's layout, navigation, and branding, aligning the storefront with university standards and improving the overall user experience.</li>
+                  <li>Designed product images and marketing visuals in Adobe Photoshop to make the storefront more professional and easier to shop.</li>
+                  <li>Worked closely with the university's printing department to translate their needs into a working solution and keep operations running smoothly.</li>
+                </ul>
+                <ul class="stack"><li>Xerox MarketDirect</li><li>eCommerce</li><li>Photoshop</li></ul>
+              </div>
+            </div>
+            <div class="entry">
+              <div class="entry-meta"><span>Jul 2023 — Aug 2025</span><span>Hayward, CA</span></div>
+              <div class="entry-body">
+                <h4>Service Desk I — Student Assistant</h4>
+                <p class="entry-org">Cal State East Bay</p>
+                <ul>
+                  <li>Served as a first point of contact for IT support, resolving requests via chat, phone, and in person, and logging every issue in the ServiceNow ticketing system.</li>
+                  <li>Provided hands-on and remote technical support to students and staff, using the DUO admin panel and the Bomgar remote support console to resolve issues quickly.</li>
+                  <li>Re-imaged and wiped computers for reissue, running quality checks to make sure every device met standards before handoff.</li>
+                  <li>Built a reputation for reliability by following procedures closely, supporting teammates on group projects, and keeping clear daily records of completed work.</li>
+                </ul>
+                <ul class="stack"><li>ServiceNow</li><li>DUO</li><li>Bomgar</li><li>Imaging</li></ul>
+              </div>
+            </div>
+            <div class="entry" id="res-wireless">
+              <div class="entry-meta"><span>Aug 2023 — Dec 2023</span><span>Hayward, CA</span></div>
+              <div class="entry-body">
+                <h4>Student Research Assistant</h4>
+                <p class="entry-org">Cal State East Bay · Wireless Data Arbitration</p>
+                <ul>
+                  <li>Built a wireless communication system using nRF24L01 modules across two Arduino boards to transmit data in real time, supporting a university research project.</li>
+                  <li>Designed a fuzzy logic algorithm that automatically adjusted data transmission credits based on network queue congestion, improving efficiency.</li>
+                  <li>Used SPI to interface with and drive the nRF24L01 modules, getting the hardware talking to each other reliably.</li>
+                </ul>
+                <ul class="stack"><li>Arduino</li><li>nRF24L01</li><li>SPI</li><li>Fuzzy logic</li></ul>
+                <p class="entry-links"><a href="#report-wireless-arbiter">Read report →</a><a href="#hardware/hw-wireless">Project →</a></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="resume-block">
+            <h3 class="block-title">Projects</h3>
+            <div class="entry" id="res-plotter">
+              <div class="entry-meta"><span>Sep 2024 — May 2025</span><span class="entry-note">Hardware</span></div>
+              <div class="entry-body">
+                <h4>2-D Plotter PCB + Software</h4>
+                <ul>
+                  <li>Designed a custom 4-layer PCB in Fusion 360 for a 2D plotting machine, using an ATmega328PU microcontroller and ULN2003A motor drivers — taking the project from concept through a working physical prototype.</li>
+                  <li>Wrote the software that controls the plotter's stepper motors, processes commands, and handles data storage, bringing the hardware to life end-to-end.</li>
+                </ul>
+                <ul class="stack"><li>Fusion 360</li><li>4-layer PCB</li><li>ATmega328PU</li><li>ULN2003A</li><li>Stepper motors</li></ul>
+                <p class="entry-links"><a href="#report-2d-plotter">Read report →</a><a href="#hardware/hw-plotter">Project →</a></p>
+              </div>
+            </div>
+            <div class="entry" id="res-homelab">
+              <div class="entry-meta"><span>Jun 2023 — Present</span><span class="entry-note">Infrastructure</span></div>
+              <div class="entry-body">
+                <h4>Homelab Media Server</h4>
+                <ul>
+                  <li>Set up and maintain a personal home server using TrueNAS and Unraid, deploying Docker containers to stream a personal library of movies and TV shows.</li>
+                  <li>Configured secure local file sharing across devices using SMB/NFS storage pools, similar to how businesses manage shared network storage.</li>
+                </ul>
+                <ul class="stack"><li>TrueNAS</li><li>Unraid</li><li>Docker</li><li>SMB / NFS</li></ul>
+              </div>
+            </div>
+            <div class="entry" id="res-password">
+              <div class="entry-meta"><span>Aug 2022 — Feb 2023</span><span class="entry-note">Software</span></div>
+              <div class="entry-body">
+                <h4>Password Manager in C++</h4>
+                <ul>
+                  <li>Built a terminal-based password manager in C++ to store personal login credentials in an encrypted .txt file.</li>
+                  <li>Independently researched and implemented the Vigenère cipher to encrypt stored data.</li>
+                </ul>
+                <ul class="stack"><li>C++</li><li>Vigenère cipher</li><li>CLI</li></ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="resume-block">
+            <h3 class="block-title">Skills</h3>
+            <div class="skills">
+              <div>
+                <h4>Languages &amp; Platforms</h4>
+                <ul class="stack"><li>C++</li><li>Python</li><li>HTML</li><li>CSS</li><li>TrueNAS</li><li>Unraid</li><li>SSH</li></ul>
+              </div>
+              <div>
+                <h4>Technical</h4>
+                <ul class="stack"><li>Windows troubleshooting</li><li>PC building</li><li>Windows &amp; Linux</li></ul>
+              </div>
+              <div>
+                <h4>Work Style</h4>
+                <ul class="stack"><li>Precise with procedures</li><li>Strong communication</li><li>Quick learner</li><li>Time management</li><li>Resourceful</li><li>Fast-paced environments</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ REPORTS ============ -->
+      <section id="reports" class="panel" data-panel="reports">
+        <div class="panel-head">
+          <h2>Reports</h2>
+          <p>Progress reports and write-ups on active work. Each report links to the project it covers.</p>
+        </div>
+
+        <div class="reports">
+          <article class="report" id="rp-plotter">
+            <div class="report-meta">
+              <span class="date">2024 — 2025</span>
+              <span class="tag">Design Journal</span>
+              <span class="tag">Fab Package</span>
+              <span class="tag">CMPE 493</span>
+            </div>
+            <div class="report-body">
+              <h3>Design and Implementation of a 2D Plotter Using Unipolar Stepper Motors</h3>
+              <p>Senior design journal covering the plotter's system architecture, schematics and PCB layout, firmware algorithms, OLED and rotary-encoder interface, and EEPROM G-code storage system. The manufacturing package shows the board as it went to fabrication on 2024-12-11: specs and design rules, the four copper layers rendered from the Gerber files, and the full bill of materials.</p>
+              <ul class="stack"><li>ATmega328P</li><li>Stepper control</li><li>G-code</li><li>EEPROM</li><li>Python</li><li>4-layer PCB</li><li>BOM</li></ul>
+            </div>
+            <div class="report-links">
+              <a href="#report-2d-plotter">Read full report →</a>
+              <a href="reports/2d-plotter/2d-plotter-journal.pdf" download>Download PDF ↓</a>
+              <a href="#report-2d-plotter-mfg">Manufacturing package →</a>
+              <a href="#hardware/hw-plotter">Hardware →</a>
+              <a href="#software/sw-plotter">Software →</a>
+            </div>
+          </article>
+
+          <article class="report" id="rp-wireless">
+            <div class="report-meta">
+              <span class="date">2023</span>
+              <span class="tag">Project Report</span>
+              <span class="tag">Research</span>
+            </div>
+            <div class="report-body">
+              <h3>Wireless Data Arbitration with nRF24L01 Radios and Fuzzy Logic</h3>
+              <p>How two Arduinos negotiate data flow over radio with a fuzzy-logic credit arbiter. Covers what the project teaches, how the code and timing actually behave, a code review with fixes, and where the same report-and-grant pattern is used in real networks.</p>
+              <ul class="stack"><li>nRF24L01</li><li>Arduino</li><li>Fuzzy logic</li><li>Flow control</li></ul>
+            </div>
+            <div class="report-links">
+              <a href="#report-wireless-arbiter">Read full report →</a>
+              <a href="#hardware/hw-wireless">Hardware →</a>
+              <a href="#software/sw-arbiter">Software →</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ============ REPORT: 2D PLOTTER JOURNAL ============ -->
+      <section id="report-2d-plotter" class="panel" data-panel="report-2d-plotter" data-parent="reports">
+        <div class="panel-head panel-head-row">
+          <div>
+            <a class="back-link" href="#reports/rp-plotter">← All reports</a>
+            <p class="label">Design Journal · CMPE 493 · 2024</p>
+            <h2>Design and Implementation of a 2D Plotter Using Unipolar Stepper Motors</h2>
+            <p>Angel Barrera, John San Juan, Ranbir Saini · Department of Computer Engineering, California State University, East Bay</p>
+          </div>
+          <a class="button" href="reports/2d-plotter/2d-plotter-journal.pdf" download>Download PDF ↓</a>
+        </div>
+
+        <div class="doc">
+          <nav class="doc-toc" aria-label="Report contents">
+            <ol>
+              <li><a href="#report-2d-plotter/r-abstract">Abstract</a></li>
+              <li><a href="#report-2d-plotter/r-intro"><span>I</span>Introduction</a></li>
+              <li><a href="#report-2d-plotter/r-overview"><span>II</span>System Overview</a></li>
+              <li><a href="#report-2d-plotter/r-schematics"><span>III</span>Full Schematics</a></li>
+              <li><a href="#report-2d-plotter/r-layout"><span>IV</span>Layout</a></li>
+              <li><a href="#report-2d-plotter/r-mcu"><span>V</span>Microcontroller Unit</a></li>
+              <li><a href="#report-2d-plotter/r-motion"><span>VI</span>Motion &amp; Interpolation</a></li>
+              <li><a href="#report-2d-plotter/r-ui"><span>VII</span>User Interface</a></li>
+              <li><a href="#report-2d-plotter/r-eeprom"><span>VIII</span>EEPROM Storage</a></li>
+              <li><a href="#report-2d-plotter/r-conclusion"><span>IX</span>Conclusion</a></li>
+              <li><a href="#report-2d-plotter/r-refs">References</a></li>
+            </ol>
+          </nav>
+
+          <div class="doc-body">
+
+            <!-- Abstract -->
+            <section id="r-abstract">
+              <h3><span class="sec-num">—</span>Abstract</h3>
+              <figure class="doc-fig">
+                <img src="reports/2d-plotter/plotter-photo.jpg" alt="The assembled 2D plotter: custom PCB with OLED in an enclosure beside the 3D-printed X/Y gantry holding a pen over grid paper" loading="lazy">
+                <figcaption>Fig. 1 — The assembled 2D plotter</figcaption>
+              </figure>
+              <p>This paper presents the design and implementation of a two-axis stepper motor plotter (2D plotter), a compact and cost-effective device capable of rendering vector-based drawings on a 2D surface. The system utilizes three unipolar stepper motors controlled by an ATmega328P microcontroller to achieve precise motion in the X, Y, and Z axes. Movement calibration is achieved through step-per-millimeter constants, while a pen-lift mechanism enables selective contact with the drawing surface. Commands are processed over a serial interface, allowing the plotter to interpret basic G-code-like instructions for coordinated motion. Emphasis is placed on mechanical accuracy, motor synchronization, and command parsing for reliable operation. The design serves as a foundational platform for educational, artistic, and prototyping applications.</p>
+              <p>The purpose of this project was to learn how to control multiple stepper motors using programmed step sequences and translate coordinate-based inputs into physical motion. Basic commands are processed over serial to move the pen to specific positions on the drawing surface.</p>
+              <p>This setup provides a simple example of how embedded systems can be used to automate mechanical tasks. The main learning goals were understanding motor driving techniques, timing and synchronization, and how mechanical limitations affect accuracy and performance.</p>
+              <h4>Index Terms</h4>
+              <ul class="stack">
+                <li>Axis control</li><li>Coordinate mapping</li><li>Firmware logic</li><li>G-code</li><li>Mechanical actuation</li><li>Microcontroller</li><li>Microstepping</li><li>Motion sequencing</li><li>Pen lift mechanism</li><li>Plotting accuracy</li><li>Serial command interface</li><li>Signal timing</li><li>Stepper motor calibration</li><li>Stepper motor control</li><li>Vector-based plotting</li>
+              </ul>
+            </section>
+
+            <!-- I -->
+            <section id="r-intro">
+              <h3><span class="sec-num">I.</span>Introduction</h3>
+              <p>This project involved designing and building a 2D plotter to gain hands-on experience with stepper motor control, embedded programming, and mechanical system integration. The plotter uses three unipolar stepper motors: two for X and Y axis movement, and one for pen up/down control. An ATmega328 microcontroller runs the control logic, and ULN2003A driver boards are used to interface with the motors.</p>
+              <p>This project focuses on building a 2D plotter that can move a pen along the X and Y axes to draw shapes based on digital input. To make this possible, we divided the system into several key subsystems: motor control, power delivery, axis calibration, EEPROM memory for saving settings, a 0.9-inch OLED screen for displaying system status, and a rotary encoder for manual navigation and input. Each component plays a role in ensuring the plotter operates accurately and is user-friendly. Our team split these tasks, and the following sections explain what each member contributed, starting with motor setup, power management, and movement calibration.</p>
+            </section>
+
+            <!-- II -->
+            <section id="r-overview">
+              <h3><span class="sec-num">II.</span>System Overview</h3>
+              <p>The 2D plotter system is built around several core subsystems working together to interpret user commands and produce accurate, repeatable motion across two axes. At the heart of the system is an ATmega328PU microcontroller, responsible for coordinating all hardware components.</p>
+              <p>The X, Y, and Z motion is driven by three unipolar stepper motors, each connected to a ULN2003A driver module. The X and Y motors move the pen across the drawing area, while the Z motor controls pen lift. The system receives movement instructions through a serial interface and translates them into stepper motor signals.</p>
+              <p>To aid user interaction, the system includes a 0.9-inch OLED screen that displays live feedback such as current coordinates, mode selection, or system status. A rotary encoder allows the user to navigate menu options, confirm selections, and manually adjust the pen position when needed.</p>
+              <p>An external EEPROM (AT24C256) is used to store configuration settings such as steps-per-millimeter, home positions, and previous drawing modes. This allows the plotter to retain critical data between power cycles.</p>
+              <p>Power is delivered through a buck converter, which ensures consistent voltage to both logic-level components and motor drivers. Proper calibration of steps-per-millimeter and synchronized motor control are essential for accurate plotting, and the system is designed to accommodate future expansions such as SD card integration or Bluetooth serial control. Fig. 2 illustrates the overall block diagram of the system architecture.</p>
+              <figure class="doc-fig">
+                <img src="reports/2d-plotter/block-diagram.png" alt="System block diagram: ATmega328 connected to three ULN2003 motor drivers and BYJ48 stepper motors, a rotary encoder switch, two AT24C256 EEPROMs and a 0.9-inch OLED over I2C, a 5V power supply and an LP2985 voltage regulator" loading="lazy">
+                <figcaption>Fig. 2 — System block diagram. Subsystems: (a) motor control, (b) memory management, (c) rotary encoder / OLED screen interface, (d) power delivery</figcaption>
+              </figure>
+              <div class="doc-fig-row">
+                <figure class="doc-fig">
+                  <img src="reports/2d-plotter/power-schematic.png" alt="Power supply schematic with inductors, diodes and regulator ICs" loading="lazy">
+                  <figcaption>Fig. 3 — Power supply schematic</figcaption>
+                </figure>
+                <figure class="doc-fig">
+                  <img src="reports/2d-plotter/power-pcb.png" alt="Power supply PCB layout with wide red copper traces" loading="lazy">
+                  <figcaption>Fig. 4 — Power supply PCB layout</figcaption>
+                </figure>
+              </div>
+
+              <h4>A. Abbreviations and Acronyms</h4>
+              <dl class="acronyms">
+                <dt>EEPROM</dt><dd>Electrically Erasable Programmable Read-Only Memory</dd>
+                <dt>G-code</dt><dd>Geometric Code (used in numerical control systems)</dd>
+                <dt>GUI</dt><dd>Graphical User Interface</dd>
+                <dt>I²C</dt><dd>Inter-Integrated Circuit (also referred to as I2C)</dd>
+                <dt>IDE</dt><dd>Integrated Development Environment</dd>
+                <dt>IO</dt><dd>Input/Output</dd>
+                <dt>MCU</dt><dd>Microcontroller Unit</dd>
+                <dt>OLED</dt><dd>Organic Light-Emitting Diode</dd>
+                <dt>PCB</dt><dd>Printed Circuit Board</dd>
+                <dt>PWM</dt><dd>Pulse Width Modulation</dd>
+                <dt>SCL</dt><dd>Serial Clock Line (I²C)</dd>
+                <dt>SDA</dt><dd>Serial Data Line (I²C)</dd>
+              </dl>
+            </section>
+
+            <!-- III -->
+            <section id="r-schematics">
+              <h3><span class="sec-num">III.</span>Full Schematics</h3>
+              <p>The schematic diagrams represent the core electrical design of the 2D plotter and provide a complete blueprint for replicating or modifying the system. Every component, from the microcontroller to the stepper motor drivers and user interface devices, is laid out with clear interconnections to ensure compatibility, minimize noise, and maintain functional stability. This section presents the finalized schematics used during development, along with the rationale behind key design choices such as power routing, pin assignments, communication protocols, and protection elements. These schematics are critical not only for assembling the system but also for debugging, future scaling, or redesigning individual subsystems.</p>
+              <figure class="doc-fig">
+                <img src="reports/2d-plotter/full-schematic.png" alt="Full system schematic showing the microcontroller, three motor driver ICs, power section and connectors" loading="lazy">
+                <figcaption>Fig. 5 — Full schematics</figcaption>
+              </figure>
+            </section>
+
+            <!-- IV -->
+            <section id="r-layout">
+              <h3><span class="sec-num">IV.</span>Layout</h3>
+              <p>The PCB layout was designed with a strong emphasis on signal integrity, power stability, and manufacturability. Translating the schematic into a real-world board required careful placement of components to minimize trace lengths, avoid crosstalk, and ensure proper grounding. High-current paths for the stepper motors were isolated from the microcontroller logic to reduce noise and prevent brownout conditions. Attention was also given to component orientation and labeling to simplify debugging and assembly. This section outlines the physical layout strategy, layer stackup, trace routing, and spacing rules used to optimize both performance and reliability.</p>
+              <figure class="doc-fig">
+                <img class="tall" src="reports/2d-plotter/full-pcb.png" alt="Full PCB layout with blue and red traces, the microcontroller in the center and power circuitry at the bottom" loading="lazy">
+                <figcaption>Fig. 6 — Full PCB layout</figcaption>
+              </figure>
+            </section>
+
+            <!-- V -->
+            <section id="r-mcu">
+              <h3><span class="sec-num">V.</span>Microcontroller Unit</h3>
+              <p>The microcontroller used in this project is the ATmega328P, which is the same chip found on standard Arduino Uno boards. It was chosen due to its low cost, ease of programming, and compatibility with common development tools like the Arduino IDE. The ATmega328P operates at 16 MHz and provides enough digital I/O pins to control all three stepper motors and handle serial communication.</p>
+              <p>In this setup, digital output pins are connected to the ULN2003A stepper motor driver inputs. The microcontroller sends a series of HIGH and LOW signals in a specific pattern to step the motors in the desired direction. Each axis uses four pins to control one motor, and the Z-axis (pen up/down) is also controlled the same way.</p>
+              <p>Currently all stepper motors are controlled using the built-in <code>Stepper</code> library, which outputs a step sequence to four digital pins for each motor.</p>
+              <p>The three unipolar stepper motors are each connected to a ULN2003A driver board, and the pin assignments on the ATmega328P are shown in Table I. The X and Y motors control horizontal and vertical movement, respectively, while the Z motor handles the pen up/down motion.</p>
+              <p>The <code>Stepper</code> class is instantiated using four control pins per motor, and each motor is set to 2048 steps per revolution. The firmware is structured to respond to basic movement commands over serial, such as <code>X100</code> or <code>PD</code>, and convert them into discrete motor steps. The Z motor moves the pen using fixed values defined by <code>PEN_DOWN_STEPS</code> and <code>PEN_UP_STEPS</code>.</p>
+
+              <div class="table-wrap">
+                <table class="doc-table">
+                  <caption>Table I — Pin connections between the ATmega328P and peripherals</caption>
+                  <thead>
+                    <tr><th>Axis / Device</th><th>ULN2003A Inputs</th><th>ATmega328P Pins</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>X-Axis</td><td>IN1–IN4</td><td>D6, D7, D8, D9</td></tr>
+                    <tr><td>Y-Axis</td><td>IN1–IN4</td><td>A0, A1, A2, A3</td></tr>
+                    <tr><td>Z-Axis</td><td>IN1–IN4</td><td>D2, D3, D4, D5</td></tr>
+                    <tr><td>OLED display</td><td>—</td><td>A4 (SDA), A5 (SCL)</td></tr>
+                    <tr><td>EEPROM chip 1</td><td>—</td><td>A4 (SDA), A5 (SCL)</td></tr>
+                    <tr><td>EEPROM chip 2</td><td>—</td><td>A4 (SDA), A5 (SCL)</td></tr>
+                    <tr><td>Rotary encoder switch</td><td>—</td><td>D12</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h4>A. Equations</h4>
+              <p>The following equations define step conversion, delta movement, and the parametric equations used for circular plotting.</p>
+              <ol class="equations">
+                <li><var>S<sub>x</sub></var> = round(<var>x</var> · stepsPerMM<sub>x</sub>)</li>
+                <li><var>S<sub>y</sub></var> = round(<var>y</var> · stepsPerMM<sub>y</sub>)</li>
+                <li>Δ<var>S</var> = <var>S</var><sub>target</sub> − <var>S</var><sub>current</sub></li>
+                <li><var>θ<sub>i</sub></var> = 2π<var>i</var> / <var>N</var></li>
+                <li><var>x<sub>i</sub></var> = <var>x<sub>c</sub></var> + <var>r</var> · cos(<var>θ<sub>i</sub></var>)</li>
+                <li><var>y<sub>i</sub></var> = <var>y<sub>c</sub></var> + <var>r</var> · sin(<var>θ<sub>i</sub></var>)</li>
+              </ol>
+
+              <h4>B. Algorithms</h4>
+              <div class="algo">
+                <p class="algo-title">Algorithm 1 — Finite State Machine for Mode Control</p>
+<pre><code>Initialize enum OpMode { IDLE, MANUAL_CONTROL, PLOTTING }
+
+loop():
+    if (currentMode == IDLE):
+        wait for user input
+    else if (currentMode == MANUAL_CONTROL):
+        accept and execute manual axis commands
+    else if (currentMode == PLOTTING):
+        read and execute G-code from EEPROM</code></pre>
+                <p>The FSM controls the plotter's behavior across three operational states. The system switches modes based on parsed serial commands and enables different features depending on the current mode.</p>
+              </div>
+
+              <div class="algo">
+                <p class="algo-title">Algorithm 2 — Manual Command Parsing</p>
+<pre><code>if (command starts with 'X', 'Y', or 'Z'):
+    axis  ← first character of command
+    steps ← parse remaining characters as integer
+    if axis == 'X': stepperX.step(steps)
+    if axis == 'Y': stepperY.step(steps)
+    if axis == 'Z': stepperZ.step(steps)</code></pre>
+                <p>This algorithm parses manual movement commands such as <code>X100</code> and moves the respective motor accordingly. It allows users to manually control motion for calibration or positioning.</p>
+              </div>
+
+              <div class="algo">
+                <p class="algo-title">Algorithm 3 — G-Code Parsing from EEPROM</p>
+<pre><code>while (readLineFromEEPROM_to_Buffer(line)):
+    if (line starts with 'G'):
+        extract command number
+        extract X, Y, Z parameters (if present)
+        constrain values to plot area
+        moveToZ(Z) if Z is found
+        moveToXY(X, Y) if X or Y found</code></pre>
+                <p>This algorithm reads and executes stored G-code lines. It supports <code>G0</code>, <code>G1</code>, <code>G90</code>, and <code>G91</code> commands, allowing for automated plotting from EEPROM memory.</p>
+              </div>
+
+              <div class="algo">
+                <p class="algo-title">Algorithm 4 — EEPROM Line Reader</p>
+<pre><code>initialize buffer
+while (eepromReadAddress &lt; TOTAL_MEMORY):
+    byte ← readEEPROMByte(eepromReadAddress)
+    if byte == END_OF_DATA_MARKER or byte ≥ 0xE0:
+        return false
+    if byte == '\n':
+        null-terminate buffer
+        return true
+    append byte to buffer
+    increment eepromReadAddress</code></pre>
+              </div>
+
+              <div class="algo">
+                <p class="algo-title">Algorithm 5 — XY Coordinate Step Interpolation</p>
+<pre><code>stepsX ← targetStepsX - currentStepsX
+stepsY ← targetStepsY - currentStepsY
+
+while (stepsDoneX &lt; abs(stepsX) or stepsDoneY &lt; abs(stepsY)):
+    if (stepsDoneX &lt; abs(stepsX)):
+        stepperX.step(directionX)
+        stepsDoneX++
+    if (stepsDoneY &lt; abs(stepsY)):
+        stepperY.step(directionY)
+        stepsDoneY++</code></pre>
+                <p>This performs basic two-axis interpolation, allowing the plotter to move diagonally by alternating steps on both axes. It doesn't implement smooth interpolation but is effective for low-complexity motion.</p>
+              </div>
+
+              <div class="algo">
+                <p class="algo-title">Algorithm 6 — EEPROM Address Mapping</p>
+<pre><code>if (memoryAddress &lt; EEPROM_SIZE):
+    i2cAddress  ← EEPROM_ADDR1
+    chipAddress ← memoryAddress
+else:
+    i2cAddress  ← EEPROM_ADDR2
+    chipAddress ← memoryAddress - EEPROM_SIZE</code></pre>
+                <p>This maps logical EEPROM addresses to physical memory locations across two EEPROM chips. It allows seamless access to a larger address space without manual chip selection.</p>
+              </div>
+            </section>
+
+            <!-- VI -->
+            <section id="r-motion">
+              <h3><span class="sec-num">VI.</span>Motion and Control Interpolation</h3>
+              <div class="doc-fig-row doc-fig-row-narrow">
+                <figure class="doc-fig">
+                  <img class="tall" src="reports/2d-plotter/driver-pcb.png" alt="PCB layout of the three stepper driver ICs and their connectors" loading="lazy">
+                  <figcaption>Fig. 7 — Stepper driver PCB layout</figcaption>
+                </figure>
+                <figure class="doc-fig">
+                  <img class="tall" src="reports/2d-plotter/driver-schematic.png" alt="Schematic of three ULN2003 driver ICs U4, U5 and U6 with decoupling capacitors C12, C13 and C14" loading="lazy">
+                  <figcaption>Fig. 8 — Stepper driver schematic</figcaption>
+                </figure>
+              </div>
+
+              <h4>A. Motor Movement</h4>
+              <p>The firmware supports both direct step-based commands (e.g., <code>X100</code>, <code>Y-50</code>) and coordinate-based plotting routines (e.g., <code>CIRCLE</code>, <code>SQUARE</code>), ensuring flexible motor control. To ensure all commands remain within the safe physical bounds of the machine, constrained position values are first calculated and then converted into stepper motor instructions.</p>
+              <p>Stepper movement is executed sequentially per axis to reduce complexity and avoid loss of position, with each axis updating its logical state after every move. The pen-lifting mechanism is also handled by a stepper motor (Z-axis), which toggles between drawing and non-drawing positions using fixed upward or downward movements.</p>
+              <p>The subsequent sections detail the equations and algorithms used to:</p>
+              <ul class="doc-list">
+                <li>Convert distances to motor steps,</li>
+                <li>Constrain movement within the allowed drawing area,</li>
+                <li>Compute coordinates for drawing primitives (lines, squares, and circles).</li>
+              </ul>
+
+              <h4>B. G-Code</h4>
+              <p>G-code functionality is currently being tested by manually sending single-line instructions over the serial interface to the PCB. Commands such as <code>X100</code>, <code>Y-50</code>, and <code>Z200</code> directly move the motors by a specified number of steps, while <code>PD</code> and <code>PU</code> control the pen's vertical movement. Higher-level instructions like <code>CIRCLE</code> and <code>SQUARE</code> trigger pre-programmed drawing routines.</p>
+              <p>When G-code movement commands are processed, position values are converted into step counts using equations (1) and (2), where the X and Y distances are multiplied by their respective steps-per-millimeter constants and rounded to whole steps. For drawing curves such as circles, each point on the path is calculated using a parametric representation. Equations (4), (5), and (6) define this logic: angle θ is incremented evenly based on the number of segments <var>N</var> (Eq. 4), and each target coordinate <var>x<sub>i</sub></var> and <var>y<sub>i</sub></var> is computed using cosine and sine functions around a center point (Eqs. 5 and 6). These positions are then converted into step differences (Eq. 3) and fed to the motors.</p>
+              <p>So far, commands are sent one at a time, allowing real-time testing of motor responses and calibration. Full G-code file parsing from EEPROM is planned, which will allow buffered execution of entire plots using the same equations.</p>
+
+              <h4>C. Draw Area Size</h4>
+              <p>The maximum effective plotting area of the system is limited to <strong>8 cm × 8 cm</strong> (80 mm × 80 mm). This constraint is dictated by the mechanical travel range of the stepper motors and the physical size of the plotting frame.</p>
+              <p>To prevent mechanical overtravel and ensure precise positioning within the 80 mm × 80 mm draw area, all target coordinates are bounded using the <code>constrain()</code> function.</p>
+              <p>These functions limit the effective input values for x and y to the calibrated range of the machine. If any G-code or manual movement command attempts to move beyond the physical area (e.g., <code>X100</code> or <code>Y-10</code>), it is automatically adjusted back within range.</p>
+              <p>After constraining the position, the values are converted into motor steps using the previously defined step conversion equations (1) and (2).</p>
+            </section>
+
+            <!-- VII -->
+            <section id="r-ui">
+              <h3><span class="sec-num">VII.</span>User Interface</h3>
+              <p>The user interface of the 2D plotter was designed to be simple and easy to use. It includes a rotary encoder and an OLED screen that allow users to select and start a drawing through different predefined G-codes.</p>
+
+              <h4>A. Rotary Encoder</h4>
+              <p>The rotary encoder is used to scroll through different G-code designs and menu options. It has two main outputs (signal A and signal B) that send signals to the microcontroller when the knob is turned. The direction of rotation (clockwise or counterclockwise) is determined by checking the timing between these two signals. There is also a push-button built into the encoder that is used to make a selection.</p>
+              <div class="doc-fig-row">
+                <figure class="doc-fig">
+                  <img src="reports/2d-plotter/encoder-schematic.png" alt="Rotary encoder schematic with pull-up resistors R17 to R21 and filter capacitors C17 and C18" loading="lazy">
+                  <figcaption>Fig. 9 — Rotary encoder schematic</figcaption>
+                </figure>
+                <figure class="doc-fig">
+                  <img src="reports/2d-plotter/encoder-pcb.png" alt="Rotary encoder PCB layout" loading="lazy">
+                  <figcaption>Fig. 10 — Rotary encoder PCB layout</figcaption>
+                </figure>
+              </div>
+              <p>To make sure the encoder works correctly, the following were implemented as per the datasheet:</p>
+              <ol class="doc-list doc-list-alpha">
+                <li>Pull-up resistors (10 kΩ) were added to keep signals stable when the encoder is not moving.</li>
+                <li>Capacitors (10 nF) were used to filter out electrical noise caused by the mechanical contacts inside the encoder.</li>
+                <li>A small software delay (5 milliseconds) was added between signal checks to reduce false readings when the knob moves too fast or skips <a class="cite" href="#report-2d-plotter/r-refs">[2]</a>, <a class="cite" href="#report-2d-plotter/r-refs">[3]</a>.</li>
+              </ol>
+              <p>To track the rotary encoder's rotation direction, the code monitors changes in the A signal, checking for a <code>HIGH</code> to <code>LOW</code> transition. When this happens, it checks the B signal to determine the direction: if B is <code>HIGH</code>, the rotation is clockwise, and the selected row is incremented (moves up); if B is <code>LOW</code>, the rotation is counterclockwise, and the selected row is decremented (moves down).</p>
+              <p>The <code>millis()</code> function is used to track elapsed time and introduce a delay (<code>rotationDelay</code>) between checks, preventing false or multiple detections of the same rotation step.</p>
+<pre><code>if ((millis() - lastUpdate) &gt; rotationDelay) {
+  if (sigA != lastSigA &amp;&amp; sigA == LOW) {
+    if (sigB == HIGH) {
+      selectedRow = (selectedRow + 1) % 4;
+    } else {
+      selectedRow = (selectedRow - 1 + 4) % 4;
+    }
+    updateDisplay();
+  }
+  lastUpdate = millis();
+}</code></pre>
+
+              <h4>B. OLED Display</h4>
+              <div class="doc-fig-row">
+                <figure class="doc-fig">
+                  <img src="reports/2d-plotter/oled-schematic.png" alt="OLED display schematic: connector J12 with pull-up resistors R10 and R11 on SDA and SCL" loading="lazy">
+                  <figcaption>Fig. 11 — OLED display schematic</figcaption>
+                </figure>
+                <figure class="doc-fig">
+                  <img src="reports/2d-plotter/oled-pcb.png" alt="OLED display PCB layout around connector J12" loading="lazy">
+                  <figcaption>Fig. 12 — OLED display PCB layout</figcaption>
+                </figure>
+              </div>
+              <p>The 128×64 pixel OLED display shows a menu that lets users go through different G-code options. It is connected to the ATmega328P microcontroller using the I²C protocol (SDA and SCL pins). The display is controlled using the <code>Adafruit_GFX</code> and <code>Adafruit_SSD1306</code> libraries, which make it easier to draw graphics and text as needed <a class="cite" href="#report-2d-plotter/r-refs">[1]</a>.</p>
+              <p>When the device starts, it shows predefined G-codes to be selected. Turning the encoder moves the selection up or down. The currently selected row is highlighted with a black rectangle, making it easy to see which design or selection is chosen.</p>
+              <p>The UI design is drawn using <code>drawBitmap()</code> and updated regularly:</p>
+<pre><code>display.clearDisplay();
+display.drawBitmap(0, 0, bitmaps[bitIndex], MYBITMAP_WIDTH, SCREEN_HEIGHT, SSD1306_WHITE);
+display.display();</code></pre>
+
+              <h4>C. Menu Selection</h4>
+              <p>Once a design is selected using the encoder button, the system updates the selected index (<code>bitIndex</code>) and displays print progress on the screen using bitmaps. These bitmaps are drawn using the <code>drawBitmap()</code> function. The menu works as follows:</p>
+              <ol class="doc-list doc-list-alpha">
+                <li>The user rotates the knob to scroll through four rows (G-code or menu options depending on the page).</li>
+                <li>Pressing the knob allows selection and updates the display.</li>
+                <li>A black rectangle shows which row is currently selected.</li>
+              </ol>
+              <p>This is how the black rectangle selection is drawn over that area:</p>
+<pre><code>int rowTop = selectedRow * 16;
+display.drawLine(0, rowTop, 127, rowTop, SSD1306_BLACK);
+display.drawLine(0, rowTop + 15, 127, rowTop + 15, SSD1306_BLACK);</code></pre>
+              <p>Explanation of values:</p>
+              <ol class="doc-list doc-list-alpha">
+                <li><code>selectedRow * 16</code> calculates the vertical position (in pixels) of the top of the selected row. Since the display is 64 pixels tall and there are 4 rows, each row is 16 pixels high.</li>
+                <li><code>127</code> is the maximum X-coordinate on a 128-pixel-wide screen (0 to 127).</li>
+                <li><code>rowTop + 15</code> marks the bottom edge of the rectangle. The height of each row is 16 pixels, and since coordinates start from 0, the last pixel is at <code>rowTop + 15</code>.</li>
+              </ol>
+              <p>This helps users clearly see which design is currently selected.</p>
+            </section>
+
+            <!-- VIII -->
+            <section id="r-eeprom">
+              <h3><span class="sec-num">VIII.</span>EEPROM Storage System</h3>
+              <p>To overcome the limited onboard memory of the ATmega328P, the 2D plotter employs two external EEPROMs (AT24C256) for expanded storage capacity. These EEPROMs are dedicated to storing G-code files, which define the precise motion paths for the plotter's stepper motors. This system enables the retention of multiple plot designs that can be selected and executed by the user without reprogramming the microcontroller.</p>
+              <figure class="doc-fig">
+                <img src="reports/2d-plotter/eeprom-schematic.png" alt="EEPROM schematic: connectors J10 and J11 sharing SDA and SCL lines with pull-up resistors R6 and R7" loading="lazy">
+                <figcaption>Fig. 13 — EEPROM schematic</figcaption>
+              </figure>
+
+              <h4>A. EEPROM Configuration</h4>
+              <p>The EEPROMs communicate with the ATmega328P via the I²C protocol, using device addresses <code>0x50</code> and <code>0x51</code>. Each provides 32 kB of non-volatile memory, offering a combined total of 64 kB for persistent data storage. The SDA and SCL lines are connected through 10 kΩ pull-up resistors to maintain signal integrity.</p>
+              <p>Each EEPROM supports 64-byte page writes. To ensure data integrity, write operations are performed in aligned 64-byte chunks, with a mandatory delay to accommodate the EEPROM's internal write cycle timing.</p>
+              <p>Example code snippet to write a 64-byte G-code block to EEPROM:</p>
+<pre><code>#define EEPROM_ADDR1 0x50
+#define GCODE_START_ADDR 0x1000
+
+uint8_t gcodeChunk[64] = { 'G', '0', '1', ' ', 'X', '1', '0', ' ', 'Y', '2', '0', '\n', /* ... */ };
+
+void writeGcodeChunk() {
+  Wire.beginTransmission(EEPROM_ADDR1);
+  Wire.write((GCODE_START_ADDR &gt;&gt; 8) &amp; 0xFF);
+  Wire.write(GCODE_START_ADDR &amp; 0xFF);
+  for (uint8_t i = 0; i &lt; 64; i++) {
+    Wire.write(gcodeChunk[i]);
+  }
+  Wire.endTransmission();
+  delay(5);
+}</code></pre>
+              <p>This process is iteratively executed to write entire G-code files into the EEPROM memory space.</p>
+
+              <h4>B. Python-Driven File Management System</h4>
+              <p>To streamline the process of uploading and managing G-code files, a Python-based graphical user interface (GUI) was developed. This system enables intuitive control over EEPROM file storage through serial communication with the Arduino.</p>
+              <p>Key features of the file management system:</p>
+              <ol class="doc-list doc-list-alpha">
+                <li><strong>Chunked uploads:</strong> Files are divided into 64-byte chunks to match EEPROM page size. Each chunk is transmitted with synchronized handshakes, ensuring data integrity.</li>
+                <li><strong>Automatic file indexing:</strong> New uploads are automatically assigned unique file numbers and mapped to available memory addresses.</li>
+                <li><strong>Multi-EEPROM support:</strong> Users can select between two EEPROM devices (0x50 and 0x51) for file operations.</li>
+                <li><strong>Persistent file map:</strong> File information (name, EEPROM, address, size) is saved locally, allowing file records to persist between sessions.</li>
+                <li><strong>Overwrite &amp; delete functions:</strong> Existing files can be replaced or removed, updating the file map dynamically.</li>
+                <li><strong>Download capability:</strong> Stored G-code files can be read back from EEPROM, reconstructed, and displayed in the GUI for verification.</li>
+              </ol>
+              <p>The GUI displays current file mappings, available EEPROM space, and real-time upload/download status, offering a user-friendly interface for memory management.</p>
+              <figure class="doc-fig">
+                <img src="reports/2d-plotter/eeprom-gui.png" alt="EEPROM G-code Manager window with COM port selection, EEPROM device radio buttons, upload, download and delete buttons, and a status log" loading="lazy">
+                <figcaption>Fig. 14 — EEPROM G-code Manager GUI</figcaption>
+              </figure>
+              <p>This integration simplifies the workflow for managing multiple G-code designs, providing clear visual feedback and robust file handling.</p>
+              <p>Upon uploading, the Python script divides G-code files into 64-byte chunks, transmitting each sequentially while awaiting confirmation from the microcontroller. Each file is assigned a unique identifier and mapped to its start address in EEPROM.</p>
+              <p>Example workflow:</p>
+              <ol class="doc-list">
+                <li><strong>Upload file:</strong> The Python script initiates the file upload, assigns a file number, splits the file into chunks, and performs synchronized writes.</li>
+                <li><strong>Download file:</strong> The user selects an EEPROM and file number. The system reads back the stored chunks, reconstructing the original G-code.</li>
+                <li><strong>Delete file:</strong> The selected file is removed from the file map, freeing up its address range.</li>
+                <li><strong>Persistent map:</strong> The file map is saved locally, ensuring file indices remain consistent between sessions.</li>
+              </ol>
+
+              <h4>C. G-code Execution and Optimization</h4>
+              <p>Once stored, the ATmega328P retrieves and parses G-code files in real time. Commands are buffered and converted into stepper motor signals for accurate plotting. Memory optimization strategies are employed to maximize storage efficiency, including:</p>
+              <ol class="doc-list doc-list-alpha">
+                <li>Relative coordinate encoding (delta X/Y movements).</li>
+                <li>Removal of redundant command prefixes (e.g., omitting repetitive <code>G01</code>).</li>
+                <li>Exclusion of unused parameters (e.g., Z, F values when not applicable).</li>
+              </ol>
+              <p>These methods significantly reduce the memory footprint of each design, enabling a larger library of patterns within the available EEPROM capacity.</p>
+            </section>
+
+            <!-- IX -->
+            <section id="r-conclusion">
+              <h3><span class="sec-num">IX.</span>Conclusion</h3>
+              <p>This article presents the current progress of our 2D plotter project, which is focused on building a functional drawing machine using unipolar stepper motors and an ATmega328P microcontroller. So far, we have implemented basic motor control, serial command parsing, EEPROM storage for G-code, and a working user interface using an OLED display and rotary encoder.</p>
+              <p>The system can interpret manual and preprogrammed drawing commands, move the pen accurately in two dimensions, and lift or lower the pen as needed. While many core features are complete, further work is planned to improve G-code support, streamline drawing performance, and expand UI functionality.</p>
+              <p>This write-up serves as documentation of our current implementation and a reference for future development stages.</p>
+
+              <h4>Acknowledgments</h4>
+              <p>Angel Barrera, John San Juan, and Ranbir Saini thank the authors of the open-source 2D plotter project published on <a class="inline-link" href="https://www.instructables.com/Arduino-Mini-CNC-Plotter/" target="_blank" rel="noopener">Instructables</a> for providing publicly available 3D-printable designs and implementation guidance. The reference designs played an important role in helping the team rapidly prototype the mechanical components of the plotter, and provided a strong foundation during the early development stages of the project.</p>
+            </section>
+
+            <!-- References -->
+            <section id="r-refs">
+              <h3><span class="sec-num">—</span>References</h3>
+              <ol class="refs">
+                <li>L. P. Lam and P. D. K. Nagle, “Adafruit SSD1306 OLED display library,” Adafruit Industries, New York, NY, USA. [Online]. Available: <a class="inline-link" href="https://github.com/adafruit/Adafruit_SSD1306" target="_blank" rel="noopener">github.com/adafruit/Adafruit_SSD1306</a></li>
+                <li>Arduino Forum, “Reading rotary encoder with interrupts and debouncing,” Nov. 2022. [Online]. Available: <a class="inline-link" href="https://forum.arduino.cc/" target="_blank" rel="noopener">forum.arduino.cc</a></li>
+                <li>Arduino, “Rotary Encoder with Arduino.” [Online]. Available: <a class="inline-link" href="https://www.arduino.cc/en/Tutorial/RotaryEncoder" target="_blank" rel="noopener">arduino.cc/en/Tutorial/RotaryEncoder</a>. [Accessed: Apr. 11, 2025].</li>
+                <li>R. S. Malik, “Arduino Mini CNC Plotter,” Instructables. [Online]. Available: <a class="inline-link" href="https://www.instructables.com/Arduino-Mini-CNC-Plotter/" target="_blank" rel="noopener">instructables.com/Arduino-Mini-CNC-Plotter</a>. [Accessed: Apr. 12, 2025].</li>
+              </ol>
+              <div class="doc-end">
+                <a class="button" href="reports/2d-plotter/2d-plotter-journal.pdf" download>Download original PDF ↓</a>
+                <a class="back-link" href="#reports/rp-plotter">← All reports</a>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ REPORT: 2D PLOTTER MANUFACTURING PACKAGE ============ -->
+      <section id="report-2d-plotter-mfg" class="panel" data-panel="report-2d-plotter-mfg" data-parent="reports">
+        <div class="panel-head panel-head-row">
+          <div>
+            <a class="back-link" href="#reports/rp-plotter">← All reports</a>
+            <p class="label">Fab Package · CMPE 493 · Submitted 2024-12-11</p>
+            <h2>2-D Plotter PCB — Manufacturing Submission</h2>
+            <p>The files sent for fabrication: board layout, schematic, Gerber and drill files, pick-and-place data and bill of materials. Exported from Autodesk Fusion Electronics.</p>
+          </div>
+          <a class="button" href="#report-2d-plotter">Design journal →</a>
+        </div>
+
+        <div class="doc">
+          <nav class="doc-toc" aria-label="Package contents">
+            <ol>
+              <li><a href="#report-2d-plotter-mfg/m-specs"><span>01</span>Board Specs</a></li>
+              <li><a href="#report-2d-plotter-mfg/m-layers"><span>02</span>Layer Stack</a></li>
+              <li><a href="#report-2d-plotter-mfg/m-parts"><span>03</span>Key Parts</a></li>
+              <li><a href="#report-2d-plotter-mfg/m-bom"><span>04</span>Bill of Materials</a></li>
+              <li><a href="#report-2d-plotter-mfg/m-files"><span>05</span>Package Files</a></li>
+            </ol>
+          </nav>
+
+          <div class="doc-body">
+
+            <section id="m-specs">
+              <h3><span class="sec-num">01</span>Board Specs</h3>
+              <p>A single 4-layer board carries the whole plotter: the ATmega328P, the three stepper drivers, power regulation, the EEPROM sockets and the user interface. The numbers below come straight from the fabrication files.</p>
+              <div class="spec-grid">
+                <div><span>Dimensions</span>105.08 × 210.80 mm<small>4.14 × 8.30 in</small></div>
+                <div><span>Copper layers</span>4<small>1 oz (35 µm) each</small></div>
+                <div><span>Thickness</span>1.2 mm</div>
+                <div><span>Min trace / space</span>6 mil</div>
+                <div><span>Min drill</span>0.35 mm</div>
+                <div><span>Drilled holes</span>181<small>14 tool sizes, 25 vias</small></div>
+                <div><span>Nets</span>47</div>
+                <div><span>Components</span>51<small>25 unique parts</small></div>
+                <div><span>Parts cost</span>$36.37<small>per board, DigiKey pricing</small></div>
+              </div>
+            </section>
+
+            <section id="m-layers">
+              <h3><span class="sec-num">02</span>Layer Stack</h3>
+              <p>Signals are routed on the outer layers, and the two inner layers are solid copper pours: L2 carries the power nets and L3 is a continuous ground plane. Each signal layer sits directly against a solid plane, which gives every trace a short return path and helps keep noise from the motor drivers out of the logic.</p>
+              <div class="layer-grid">
+                <figure class="doc-fig">
+                  <img src="reports/2d-plotter/board-l1-top.svg" alt="Top copper layer: signal traces between the microcontroller, motor drivers and connectors" loading="lazy">
+                  <figcaption>L1 · Top — signals</figcaption>
+                </figure>
+                <figure class="doc-fig">
+                  <img src="reports/2d-plotter/board-l2-inner.svg" alt="Inner layer 2: copper pours for the VDD power nets" loading="lazy">
+                  <figcaption>L2 · Inner — power (VDD)</figcaption>
+                </figure>
+                <figure class="doc-fig">
+                  <img src="reports/2d-plotter/board-l3-inner.svg" alt="Inner layer 3: solid ground plane with clearances around holes" loading="lazy">
+                  <figcaption>L3 · Inner — ground</figcaption>
+                </figure>
+                <figure class="doc-fig">
+                  <img src="reports/2d-plotter/board-l4-bottom.svg" alt="Bottom copper layer: signal traces" loading="lazy">
+                  <figcaption>L4 · Bottom — signals</figcaption>
+                </figure>
+                <figure class="doc-fig">
+                  <img src="reports/2d-plotter/board-silk-top.svg" alt="Top silkscreen: component outlines, reference designators and the team credit text" loading="lazy">
+                  <figcaption>Top silkscreen</figcaption>
+                </figure>
+              </div>
+              <p class="note">Rendered from the submitted Gerber and Excellon drill files. Copper is shown in white and drilled holes in black.</p>
+            </section>
+
+            <section id="m-parts">
+              <h3><span class="sec-num">03</span>Key Parts</h3>
+              <dl class="acronyms">
+                <dt>U3</dt><dd>ATmega328P-PU microcontroller in a 28-pin DIP, clocked by a 16 MHz crystal (Y1) with 22 pF load capacitors (C10, C11).</dd>
+                <dt>U4–U6</dt><dd>Three ULN2003A Darlington driver arrays, one per stepper motor, each with a 0.1 µF decoupling capacitor (C12–C14).</dd>
+                <dt>J7–J9</dt><dd>JST XH 5-pin headers that the 28BYJ-48 stepper motors plug straight into.</dd>
+                <dt>U1, U2</dt><dd>Two LM2596 3 A buck regulators (TO-263) with 33 µH and 22 µH power inductors (L1, L2), 1N5822 Schottky catch diodes (CR1, CR2) and polymer bulk capacitors.</dd>
+                <dt>J1, SW1</dt><dd>5.5 × 2.1 mm DC barrel jack and a slide switch for main power.</dd>
+                <dt>J10, J11</dt><dd>8-pin DIP sockets for the two AT24C256 EEPROMs, so the G-code storage chips can be swapped out.</dd>
+                <dt>IC1</dt><dd>Bourns PEC11L 20-pulse rotary encoder with push-button, debounced with 10 kΩ pull-ups and 10 nF capacitors (C17, C18).</dd>
+                <dt>J12</dt><dd>4-pin header for the 128×64 I²C OLED display.</dd>
+              </dl>
+            </section>
+
+            <section id="m-bom">
+              <h3><span class="sec-num">04</span>Bill of Materials</h3>
+              <p>All parts were sourced from DigiKey. The total is the cost of components for one board, not including the PCB itself.</p>
+              <div class="table-wrap">
+                <table class="doc-table bom-table">
+                  <thead>
+                    <tr><th>Ref</th><th>Description</th><th>Part number</th><th>Qty</th><th>Unit</th><th>Subtotal</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>U3</td><td>IC MCU 8-bit 32 KB flash 28-DIP</td><td>ATMEGA328P-PU</td><td>1</td><td>$2.89</td><td>$2.89</td></tr>
+                    <tr><td>U4–U6</td><td>IC power relay driver 7NPN 16-DIP</td><td>ULN2003A</td><td>3</td><td>$0.43</td><td>$1.29</td></tr>
+                    <tr><td>U1, U2</td><td>IC reg buck 12 V 3 A TO-263</td><td>LM2596S-12/NOPB</td><td>2</td><td>$6.70</td><td>$13.40</td></tr>
+                    <tr><td>Y1</td><td>Crystal 16.0000 MHz 20 pF SMD</td><td>ECS-160-20-3X-TR</td><td>1</td><td>$0.30</td><td>$0.30</td></tr>
+                    <tr><td>IC1</td><td>Rotary encoder mechanical 20 PPR</td><td>PEC11L-4115F-S0020</td><td>1</td><td>$3.01</td><td>$3.01</td></tr>
+                    <tr><td>L1</td><td>Fixed inductor 33 µH 3.5 A 57 mΩ SMD</td><td>SRR1280-330M</td><td>1</td><td>$1.15</td><td>$1.15</td></tr>
+                    <tr><td>L2</td><td>Fixed inductor 22 µH 3.5 A 43 mΩ SMD</td><td>SRR1208-220ML</td><td>1</td><td>$1.07</td><td>$1.07</td></tr>
+                    <tr><td>CR1, CR2</td><td>Diode Schottky 40 V 3 A DO-201AD</td><td>1N5822</td><td>2</td><td>$0.57</td><td>$1.14</td></tr>
+                    <tr><td>C1</td><td>Cap alum poly 680 µF 20% 16 V SMD</td><td>PCG1C681MCL1GS</td><td>1</td><td>$2.50</td><td>$2.50</td></tr>
+                    <tr><td>C3</td><td>Cap alum poly 470 µF 20% 16 V SMD</td><td>PCG1C471MCL1GS</td><td>1</td><td>$2.37</td><td>$2.37</td></tr>
+                    <tr><td>C2, C4</td><td>Cap alum 220 µF 20% 25 V radial TH</td><td>25YXJ220M6.3X11</td><td>2</td><td>$0.29</td><td>$0.58</td></tr>
+                    <tr><td>C10, C11</td><td>Cap cer 22 pF 50 V C0G/NP0 0402</td><td>GRM1555C1H220JA01D</td><td>2</td><td>$0.08</td><td>$0.16</td></tr>
+                    <tr><td>C12–C14</td><td>Cap cer 0.1 µF 10 V X7R 0402</td><td>CL05B104KP5NNNC</td><td>3</td><td>$0.08</td><td>$0.24</td></tr>
+                    <tr><td>C17, C18</td><td>Cap cer 10 nF 16 V X7R 0402</td><td>GRM155R71C103KA01D</td><td>2</td><td>$0.08</td><td>$0.16</td></tr>
+                    <tr><td>R1, R2</td><td>Res 1 kΩ 1% 1/10 W 0603</td><td>RC0603FR-071KL</td><td>2</td><td>$0.10</td><td>$0.20</td></tr>
+                    <tr><td>R3</td><td>Res 180 Ω 1% 1/16 W 0402</td><td>CRGCQ0402F180R</td><td>1</td><td>$0.10</td><td>$0.10</td></tr>
+                    <tr><td>R4</td><td>Res 3 Ω 1% 1/16 W 0402</td><td>RMCF0402FT3R00</td><td>1</td><td>$0.10</td><td>$0.10</td></tr>
+                    <tr><td>R5–R7, R10, R11, R17–R21</td><td>Res 10 kΩ 1% 1/10 W 0603</td><td>RK73H1JTTD1002F</td><td>10</td><td>$0.10</td><td>$1.00</td></tr>
+                    <tr><td>J1</td><td>Conn jack R/A PCB 5.5 × 2.1 mm</td><td>54-00127</td><td>1</td><td>$0.61</td><td>$0.61</td></tr>
+                    <tr><td>J2–J6</td><td>Conn header vert 2-pos 2.54 mm</td><td>M20-9990245</td><td>5</td><td>$0.12</td><td>$0.60</td></tr>
+                    <tr><td>J7–J9</td><td>Conn header vert 5-pos 2.5 mm</td><td>B5B-XH-A</td><td>3</td><td>$0.21</td><td>$0.63</td></tr>
+                    <tr><td>J10, J11</td><td>Conn IC DIP socket 8-pos tin</td><td>1-2199298-2</td><td>2</td><td>$0.22</td><td>$0.44</td></tr>
+                    <tr><td>J12</td><td>Conn header 4-pos 0.1" tin PCB</td><td>PPTC041LFBN-RC</td><td>1</td><td>$0.40</td><td>$0.40</td></tr>
+                    <tr><td>SW1</td><td>Switch slide SPDT 100 mA 12 V</td><td>OS102011MS2QN1</td><td>1</td><td>$0.79</td><td>$0.79</td></tr>
+                    <tr><td>SW2</td><td>Switch push SPST-NO 0.1 A 32 V</td><td>D6L90 F1 LFS</td><td>1</td><td>$1.24</td><td>$1.24</td></tr>
+                  </tbody>
+                  <tfoot>
+                    <tr><td colspan="3">Total · 25 unique parts</td><td>51</td><td></td><td>$36.37</td></tr>
+                  </tfoot>
+                </table>
+              </div>
+            </section>
+
+            <section id="m-files">
+              <h3><span class="sec-num">05</span>Package Files</h3>
+              <ul class="file-list">
+                <li><span>.brd</span>Fusion Electronics board layout</li>
+                <li><span>.sch</span>Full schematic</li>
+                <li><span>.f3d</span>Fusion 360 design file</li>
+                <li><span>.gbr</span>Gerbers: 4 copper layers, top and bottom solder mask, silkscreen, solder paste, board outline</li>
+                <li><span>.xln</span>Excellon drill file</li>
+                <li><span>.txt</span>Pick-and-place and part list for assembly</li>
+                <li><span>.xlsx</span>Bill of materials with DigiKey part numbers and pricing</li>
+              </ul>
+              <div class="doc-end">
+                <a class="button" href="#report-2d-plotter">Read the design journal →</a>
+                <a class="back-link" href="#reports/rp-plotter">← All reports</a>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ REPORT: WIRELESS DATA ARBITRATION ============ -->
+      <section id="report-wireless-arbiter" class="panel" data-panel="report-wireless-arbiter" data-parent="reports">
+        <div class="panel-head panel-head-row">
+          <div>
+            <a class="back-link" href="#reports/rp-wireless">← All reports</a>
+            <p class="label">Project Report · University Research · Aug — Dec 2023</p>
+            <h2>Wireless Data Arbitration with nRF24L01 Radios and Fuzzy Logic</h2>
+            <p>Angel Barrera · Student Research Assistant, California State University, East Bay</p>
+          </div>
+          <a class="button" href="#hardware/hw-wireless">View project →</a>
+        </div>
+
+        <div class="doc">
+          <nav class="doc-toc" aria-label="Report contents">
+            <ol>
+              <li><a href="#report-wireless-arbiter/w-overview"><span>01</span>Overview</a></li>
+              <li><a href="#report-wireless-arbiter/w-purpose"><span>02</span>Educational Purpose</a></li>
+              <li><a href="#report-wireless-arbiter/w-design"><span>03</span>System Design</a></li>
+              <li><a href="#report-wireless-arbiter/w-fuzzy"><span>04</span>Fuzzy Inference</a></li>
+              <li><a href="#report-wireless-arbiter/w-timing"><span>05</span>Timing Behavior</a></li>
+              <li><a href="#report-wireless-arbiter/w-review"><span>06</span>Code Review</a></li>
+              <li><a href="#report-wireless-arbiter/w-uses"><span>07</span>Real-World Uses</a></li>
+              <li><a href="#report-wireless-arbiter/w-credits"><span>08</span>Credits</a></li>
+            </ol>
+          </nav>
+
+          <div class="doc-body">
+
+            <section id="w-overview">
+              <h3><span class="sec-num">01</span>Overview</h3>
+              <figure class="doc-fig">
+                <img src="reports/wireless-arbiter/radio-link.svg" alt="Diagram: the datapath Arduino sends its ingress queue size to the arbiter Arduino on pipe 00002 every 100 ms; the arbiter sends a credit back on pipe 00001 500 ms later" loading="lazy">
+                <figcaption>Fig. 1 — Two Arduino Unos linked by nRF24L01 radios</figcaption>
+              </figure>
+              <p>This project links two Arduino Unos with a pair of nRF24L01 2.4 GHz radios and has them negotiate how much data may flow between them. One board, the <strong>datapath</strong>, holds packets in an ingress queue and reports how full that queue is. The other board, the <strong>arbiter</strong>, answers with a <strong>credit</strong>: the number of packets the datapath is allowed to move on. The arbiter picks that number with a small fuzzy inference system (FIS) that maps queue occupancy to a credit.</p>
+              <p>I built it as a student research assistant at Cal State East Bay. The radio code starts from the two-way example in the HowToMechatronics nRF24L01 tutorial, with the joystick and servo removed, and adds the queues, the credit protocol and the fuzzy logic on top.</p>
+            </section>
+
+            <section id="w-purpose">
+              <h3><span class="sec-num">02</span>Educational Purpose</h3>
+              <p>The system is small enough to fit on two microcontrollers, but it exercises ideas that show up in real networks, processors and control systems. Working through it teaches:</p>
+              <ol class="doc-list doc-list-alpha">
+                <li><strong>Embedded wireless communication.</strong> Driving the nRF24L01 over SPI, giving each board a reading and writing address (pipe), and switching each radio between transmit and receive, since an nRF24L01 can only do one at a time. Mirrored addresses make one board's writing pipe the other's reading pipe, which is what makes the link two-way.</li>
+                <li><strong>Real-time timing without blocking.</strong> The datapath keeps its own 100 ms clock with <code>millis()</code> instead of <code>delay()</code>, so the board keeps running between ticks. The arbiter's <code>delay(500)</code> shows the opposite: while it waits, its clock freezes and requests pile up.</li>
+                <li><strong>Queues and flow control.</strong> Packets move from an ingress queue to an egress queue only when credit arrives, and egress drains one packet per tick. This is the basic shape of credit-based flow control, where a receiver tells a sender how much it may send.</li>
+                <li><strong>Fuzzy logic control.</strong> Turning loose rules like "if the queue is high, grant a high data rate" into numbers through fuzzification, a rule base and defuzzification.</li>
+                <li><strong>System-level reasoning.</strong> Two independent loops running at different rates (100 ms vs. about 500 ms) and talking through a 3-deep radio FIFO. Working out what actually happens, including stale requests and how long a run takes, means reasoning about the whole system rather than one sketch.</li>
+                <li><strong>Reviewing embedded code.</strong> Several bugs come from small details: an <code>int</code> that can't hold 0.5, <code>delay()</code> taking whole milliseconds, and a return value that is never checked. Finding these is a lesson in reading code against its spec.</li>
+              </ol>
+            </section>
+
+            <section id="w-design">
+              <h3><span class="sec-num">03</span>System Design</h3>
+              <div class="table-wrap">
+                <table class="doc-table">
+                  <caption>Table I — The two sketches</caption>
+                  <thead>
+                    <tr><th></th><th>Datapath (<code>datapath.ino</code>)</th><th>Arbiter (<code>arbiter.ino</code>)</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Role</td><td>Holds packets, asks for credit</td><td>Decides how much credit to grant</td></tr>
+                    <tr><td>Radio pins</td><td>CE 9, CSN 10</td><td>CE 9, CSN 10</td></tr>
+                    <tr><td>Writes to pipe</td><td>"00002"</td><td>"00001"</td></tr>
+                    <tr><td>Reads on pipe 1</td><td>"00001"</td><td>"00002"</td></tr>
+                    <tr><td>Sends</td><td>ingressQueue (int, 2 bytes)</td><td>credit (int)</td></tr>
+                    <tr><td>Clock tick</td><td>Every 100 ms (millis())</td><td>Intended every 0.5 ms</td></tr>
+                    <tr><td>Power level</td><td>RF24_PA_MIN</td><td>RF24_PA_MIN</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h4>Datapath</h4>
+              <p>The datapath runs one clock tick every 100 ms. <code>loop()</code> spins continuously, but its body only runs when <code>millis() - prevMillis &gt;= 100</code>, so the <code>CLK</code> counter counts 100 ms ticks, not loop passes. Each tick it does the same things in order:</p>
+              <ol class="doc-list">
+                <li><strong>Print status:</strong> <code>CLK</code>, ingress and egress counts to Serial at 9600 baud.</li>
+                <li><strong>Refill ingress:</strong> if ingress is below <code>MAX_PKTS</code> (100), add 100 packets.</li>
+                <li><strong>Request and apply credit:</strong> stop listening and send the current ingress count to the arbiter, then start listening and read every credit waiting in the receive FIFO. Each credit moves <code>min(credit, ingressQueue)</code> packets from ingress to egress.</li>
+                <li><strong>Drain egress:</strong> if egress is non-empty, subtract one packet, which models sending one packet downstream per tick.</li>
+                <li><strong>Stop check:</strong> once egress reaches 100, print a done message and halt.</li>
+              </ol>
+
+              <h4>Arbiter</h4>
+              <p>The arbiter polls its radio every pass. When a queue-occupancy request arrives, it reads and prints it, runs the fuzzy logic to get a credit, waits 500 ms (the specified reply delay), then stops listening and sends the credit back.</p>
+
+              <figure class="doc-fig">
+                <img class="tall" src="reports/wireless-arbiter/control-flow.png" alt="Control flow diagram: the datapath loop (100 ms tick, refill ingress, send request, apply waiting credits, drain egress, stop at 100) beside the arbiter loop (poll radio, read request, fuzzy logic, wait 500 ms, send credit), linked by dashed radio arrows" loading="lazy">
+                <figcaption>Fig. 2 — Control flow. Each board runs its own loop; the dashed radio links are the only connection between them.</figcaption>
+              </figure>
+            </section>
+
+            <section id="w-fuzzy">
+              <h3><span class="sec-num">04</span>Fuzzy Inference System</h3>
+              <p><code>fuzzyLogic()</code> maps a queue occupancy to a credit in four steps.</p>
+
+              <h4>1. Fuzzification</h4>
+              <p>The input is scored against three fuzzy sets on a 0–10 scale, each giving a membership between 0 and 1. LO and HI are clipped with <code>max(0, min(1, …))</code>, so they act as shoulders; JR is a triangle.</p>
+              <figure class="doc-fig">
+                <img src="reports/wireless-arbiter/fuzzy-sets.svg" alt="Chart of the input sets: LO is 1 up to 2.5 and falls to 0 at 5; JR rises from 0 at 2 to 1 at 5 and falls to 0 at 8; HI rises from 0 at 5 to 1 at 7.5 and stays at 1" loading="lazy">
+                <figcaption>Fig. 3 — Input membership functions: LO (solid), JR (dashed), HI (dotted)</figcaption>
+              </figure>
+              <div class="table-wrap">
+                <table class="doc-table">
+                  <thead><tr><th>Input set</th><th>Shape as coded</th><th>Breakpoints</th></tr></thead>
+                  <tbody>
+                    <tr><td>LO (low)</td><td>1 up to 2.5, falls to 0 at 5</td><td>0, 2.5, 5</td></tr>
+                    <tr><td>JR (just right)</td><td>0 at 2, peak 1 at 5, 0 at 8</td><td>2, 5, 8</td></tr>
+                    <tr><td>HI (high)</td><td>0 up to 5, rises to 1 at 7.5, stays 1</td><td>5, 7.5, 10</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h4>2. Rule base</h4>
+<pre><code>IF occupancy is LO THEN credit is LDR   (low data rate)
+IF occupancy is JR THEN credit is NRC   (normal rate)
+IF occupancy is HI THEN credit is HDR   (high data rate)</code></pre>
+              <p>Each output's strength equals its input membership.</p>
+
+              <h4>3. Output sets</h4>
+              <p>LDR {0, 2.5, 5}, NRC {2, 5, 8} and HDR {5, 7.5, 10}. Each is reduced to its centroid, the average of its three points: 2.5, 5 and 7.5.</p>
+
+              <h4>4. Defuzzification</h4>
+              <p>A weighted average of those centroids, a simplified center of gravity:</p>
+              <div class="formula">
+                <span class="formula-lhs">credit =</span>
+                <span class="frac">
+                  <span>μ<sub>LO</sub> · 2.5 + μ<sub>JR</sub> · 5 + μ<sub>HI</sub> · 7.5</span>
+                  <span>μ<sub>LO</sub> + μ<sub>JR</sub> + μ<sub>HI</sub></span>
+                </span>
+              </div>
+              <p>The result is cast to <code>int</code>, which truncates (6.76 becomes 6). The denominator never reaches zero, because at every occupancy at least one set has membership above 0, so the credit always falls between 2 and 7.</p>
+              <div class="table-wrap">
+                <table class="doc-table">
+                  <caption>Table II — Worked values, computed from the code</caption>
+                  <thead><tr><th>Occupancy</th><th><span class="mu">μ</span> LO</th><th><span class="mu">μ</span> JR</th><th><span class="mu">μ</span> HI</th><th>Credit (float)</th><th>Credit sent</th></tr></thead>
+                  <tbody>
+                    <tr><td>0–2</td><td>1</td><td>0</td><td>0</td><td>2.50</td><td>2</td></tr>
+                    <tr><td>3</td><td>0.80</td><td>0.33</td><td>0</td><td>3.24</td><td>3</td></tr>
+                    <tr><td>5</td><td>0</td><td>1</td><td>0</td><td>5.00</td><td>5</td></tr>
+                    <tr><td>7</td><td>0</td><td>0.33</td><td>0.80</td><td>6.76</td><td>6</td></tr>
+                    <tr><td>8 and above (incl. 100)</td><td>0</td><td>0</td><td>1</td><td>7.50</td><td>7</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="w-timing">
+              <h3><span class="sec-num">05</span>Timing Behavior</h3>
+              <p>The datapath asks every 100 ms, but the arbiter can only answer about every 500 ms, so the system settles into roughly one credit of 7 every five datapath ticks. This walkthrough is reasoned from the code, not measured on hardware.</p>
+              <div class="table-wrap">
+                <table class="doc-table timing-table">
+                  <thead><tr><th>Time (approx.)</th><th>Datapath</th><th>Arbiter</th></tr></thead>
+                  <tbody>
+                    <tr><td>Tick 1 (0 ms)</td><td>Ingress 0 → 100. Sends 100. Nothing to read yet.</td><td>Receives 100, FIS gives 7, starts <code>delay(500)</code>.</td></tr>
+                    <tr><td>Ticks 2–5 (100–400 ms)</td><td>Ingress already 100, so no refill. Sends 100 again each tick. Egress stays 0.</td><td>Still in <code>delay(500)</code>. Its radio is still receiving, so requests queue in the 3-deep RX FIFO.</td></tr>
+                    <tr><td>~500 ms</td><td>Listening between ticks; the credit lands in its RX FIFO.</td><td>Sends credit 7, loops back and finds the next queued request.</td></tr>
+                    <tr><td>Tick 6 (~500 ms)</td><td>Sends 100, then reads credit 7: ingress 93, egress 7. Egress drains to 6.</td><td>Processing a queued (stale) request: another 500 ms wait.</td></tr>
+                    <tr><td>Tick 7</td><td>93 &lt; 100, so ingress jumps to 193.</td><td>—</td></tr>
+                    <tr><td>Steady state</td><td>+7 egress per credit, −1 per tick: net about +2 every 500 ms.</td><td>One reply per ~500 ms, always 7, because every request is ≥ 8.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>Two consequences follow:</p>
+              <ul class="doc-list">
+                <li><strong>The arbiter answers old news.</strong> Requests pile up faster than it replies, so each credit is based on an occupancy from up to about 1.5 s earlier. With these values the answer is always 7 anyway, but with smaller queues it would matter.</li>
+                <li><strong>A run takes about 25 s.</strong> At a net gain of about 2 packets per 500 ms, egress needs roughly 50 credits to reach 100, about 250 datapath ticks. Ingress never empties; it keeps getting topped up by 100.</li>
+              </ul>
+            </section>
+
+            <section id="w-review">
+              <h3><span class="sec-num">06</span>Code Review &amp; Fixes</h3>
+              <p>The code runs, but a careful read turns up six places where it doesn't do what its comments or spec say. The first three affect the specified timing and behavior.</p>
+              <div class="table-wrap">
+                <table class="doc-table review-table">
+                  <thead><tr><th>#</th><th>Where</th><th>What happens</th><th>Suggested fix</th></tr></thead>
+                  <tbody>
+                    <tr><td>1</td><td>Arbiter: <code>const int CLK_interval = 0.5;</code></td><td>An <code>int</code> can't hold 0.5, so it becomes 0. The tick condition is always true and the arbiter polls as fast as <code>loop()</code> runs. <code>millis()</code> only counts whole milliseconds anyway.</td><td>Use <code>const unsigned long CLK_INTERVAL_US = 500;</code> and compare against <code>micros()</code>.</td></tr>
+                    <tr><td>2</td><td>Arbiter: <code>delay(0.5);</code></td><td><code>delay()</code> takes whole milliseconds, so this is <code>delay(0)</code>.</td><td>Delete it, or use <code>delayMicroseconds(500)</code>.</td></tr>
+                    <tr><td>3</td><td>Datapath refill: <code>ingressQueue += MAX_PKTS;</code></td><td>Adds 100 packets at once instead of one per tick.</td><td>If the spec says increment, use <code>ingressQueue++;</code>.</td></tr>
+                    <tr><td>4</td><td>Datapath request and apply</td><td>Reads credit right after sending, before the arbiter (500 ms away) can reply, so credits arrive late and requests pile up.</td><td>Only send a request when none is outstanding, using a <code>waitingForCredit</code> flag.</td></tr>
+                    <tr><td>5</td><td>Fuzzy input scale</td><td>The sets cover 0–10 but the datapath sends 100–193, so every request is fully HI and the credit is always 7.</td><td>Scale first: <code>fuzzyLogic(queueOccupancy * 10 / MAX_PKTS)</code>, or widen the sets to 0–100.</td></tr>
+                    <tr><td>6</td><td>Datapath stop: <code>exit(1)</code></td><td>On an Uno, <code>exit()</code> halts with interrupts off, so the last Serial message may be cut off.</td><td>Call <code>Serial.flush()</code> first, or use <code>while (true) {}</code>.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>Smaller notes: neither sketch checks the <code>bool</code> returned by <code>radio.write()</code>, so failed sends go unnoticed, and the arbiter's <code>delay(500)</code> freezes its own clock while a credit is pending. Payload sizes match because <code>int</code> is 2 bytes on both Unos, but that would break if one board were 32-bit.</p>
+              <p>Fix #5 is the one that brings the fuzzy logic to life. Once occupancy is scaled into the 0–10 range, the credit actually varies between 2 and 7 with load, instead of sitting at 7.</p>
+            </section>
+
+            <section id="w-uses">
+              <h3><span class="sec-num">07</span>Real-World Use Cases</h3>
+              <p>The pattern here, where a node reports how much it has queued and a central arbiter grants it permission to send, is how many real systems share a link fairly and avoid overflowing buffers.</p>
+
+              <h4>Report-and-grant scheduling</h4>
+              <p>Cellular networks work this way. In LTE and 5G, a phone sends a buffer status report saying how much uplink data is waiting, and the base station's scheduler replies with a grant for how much it may transmit. Fiber-to-the-home (PON) and cable internet (DOCSIS) follow the same request-and-grant cycle between each home's modem and the provider's equipment. The datapath plays the phone or modem and the arbiter plays the scheduler.</p>
+
+              <h4>Credit-based flow control</h4>
+              <p>High-speed interconnects use credits so a sender never overruns a receiver's buffer. PCI Express links exchange flow-control credits for each type of traffic, and InfiniBand and Fibre Channel (buffer-to-buffer credits) do the same at the link level. Inside many-core chips, network-on-chip routers pass credits between neighbors for the same reason.</p>
+
+              <h4>Fuzzy logic in control systems</h4>
+              <p>Fuzzy controllers are used where rules of thumb are easier to state than exact equations. Well-known examples include the automatic train operation on Japan's Sendai Subway, as well as appliances such as washing machines and air conditioners that adjust to load. Fuzzy rate and congestion control is also an active research area for wireless sensor networks.</p>
+
+              <h4>Low-power wireless and IoT</h4>
+              <p>nRF24L01-class 2.4 GHz radios are common in home automation, sensor networks, remote controls and robot or drone telemetry. When many nodes share one gateway, the gateway has to decide who sends and how much. Credit-style arbitration like this gives each node a measured amount of airtime, with more going to the nodes whose queues are fullest.</p>
+            </section>
+
+            <section id="w-credits">
+              <h3><span class="sec-num">08</span>Credits</h3>
+              <p>The radio setup is based on Example 2 (bi-directional communication) of the HowToMechatronics nRF24L01 tutorial, with the joystick and servo removed. The reply timing (credit sent 500 ms after a request) and the 0.5 ms arbiter clock follow the instructor's specification for the project.</p>
+              <div class="doc-end">
+                <a class="button" href="#hardware/hw-wireless">View the project →</a>
+                <a class="back-link" href="#reports/rp-wireless">← All reports</a>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer">
+      <span>© <span id="year">2026</span> Angel Barrera</span>
+      <span>Built with HTML &amp; CSS · Hosted on GitHub Pages</span>
+    </footer>
+
+  </div>
+
+  <!-- Tab switching. Links like #software or #reports/rp-plotter open that tab
+       and scroll to the item, so report links can point straight at a project. -->
+  <script>
+    (function () {
+      var tabs = document.querySelectorAll('[data-tab]');
+      var panels = document.querySelectorAll('[data-panel]');
+
+      function show() {
+        var hash = location.hash.replace('#', '') || 'software';
+        var parts = hash.split('/');
+        var tab = parts[0];
+        var item = parts[1];
+
+        var panel = document.querySelector('[data-panel="' + tab + '"]');
+        if (!panel) { tab = 'software'; panel = document.querySelector('[data-panel="software"]'); }
+        // Full report views have no tab of their own; they light up their parent tab
+        var navTab = panel.dataset.parent || tab;
+
+        panels.forEach(function (p) { p.classList.toggle('active', p.dataset.panel === tab); });
+        tabs.forEach(function (t) {
+          var on = t.dataset.tab === navTab;
+          t.classList.toggle('active', on);
+          t.setAttribute('aria-current', on ? 'page' : 'false');
+        });
+
+        document.querySelectorAll('.highlight').forEach(function (el) { el.classList.remove('highlight'); });
+        if (item) {
+          var el = document.getElementById(item);
+          if (el && el.closest('.doc-body')) {
+            // report section: jump to its heading, no outline
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else if (el) {
+            el.classList.add('highlight');
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        } else if (panel.dataset.parent) {
+          window.scrollTo(0, 0);
+        }
+      }
+
+      window.addEventListener('hashchange', show);
+      show();
+      document.getElementById('year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
